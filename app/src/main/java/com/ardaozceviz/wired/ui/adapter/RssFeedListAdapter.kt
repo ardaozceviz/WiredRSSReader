@@ -10,9 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.ardaozceviz.wired.R
+import com.ardaozceviz.wired.controllers.WordCount
 import com.ardaozceviz.wired.models.Channel
+import com.ardaozceviz.wired.models.EXTRA_URL
 import com.ardaozceviz.wired.models.Item
 import com.ardaozceviz.wired.models.TAG_AD_LIST
+import com.ardaozceviz.wired.ui.activities.FeedDetailActivity
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.drawable.ProgressBarDrawable
 import com.facebook.drawee.view.SimpleDraweeView
@@ -53,7 +56,7 @@ class RssFeedListAdapter(private val context: Context, private val channel: Chan
         private val titleTextView = itemView.findViewById<TextView>(R.id.list_item_title)
         private val feedImageView = itemView.findViewById<SimpleDraweeView>(R.id.list_item_image_view)
         private var link = ""
-        //private val repetitiveWordsTextView = itemView.findViewById<TextView>(R.id.list_item_repetitive_words)
+        private val repetitiveWordsTextView = itemView.findViewById<TextView>(R.id.list_item_repetitive_words)
 
         fun bindRssFeedItem(listItem: Item) {
             Log.d(TAG_AD_LIST, "bindRssFeedItem() is executed.")
@@ -71,16 +74,15 @@ class RssFeedListAdapter(private val context: Context, private val channel: Chan
                     .setTapToRetryEnabled(true)
                     .setImageRequest(imageRequest)
                     .build()
+
             link = listItem.link
         }
 
         override fun onClick(p0: View?) {
             Log.d(TAG_AD_LIST, "onClick(): $link")
-            val webpage = Uri.parse(link)
-            val intent = Intent(Intent.ACTION_VIEW, webpage)
-            if (intent.resolveActivity(context.packageManager) != null) {
-                context.startActivity(intent)
-            }
+            val intent = Intent(context, FeedDetailActivity::class.java)
+            intent.putExtra(EXTRA_URL, link)
+            context.startActivity(intent)
         }
 
     }
