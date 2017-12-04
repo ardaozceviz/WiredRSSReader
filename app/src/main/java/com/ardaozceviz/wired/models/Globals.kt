@@ -7,3 +7,4 @@ package com.ardaozceviz.wired.models
 const val TAG_C_INTERFACE = "UserInterface"
 const val TAG_C_SERVER = "Server"
 const val TAG_C_LOCAL_DATA = "LocalRssFeed"
+const val TAG_AD_LIST = "RssFeedListAdapter"
