@@ -16,7 +16,7 @@ import org.json.JSONObject
  * Created by arda on 03/12/2017.
  */
 class Server(private val context: Context) {
-    private val rssFeedUrl = "http://192.168.1.16:8080/?url=https://www.wired.com/feed/rss"
+    private val rssFeedUrl = "http://192.168.1.8:8080/?url=https://www.wired.com/feed/rss"
     private val userInterface = UserInterface(context)
 
     fun getRssFeed() {

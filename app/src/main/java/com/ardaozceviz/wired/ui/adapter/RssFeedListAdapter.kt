@@ -1,6 +1,7 @@
 package com.ardaozceviz.wired.ui.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -37,7 +38,11 @@ class RssFeedListAdapter(private val context: Context, private val channel: Chan
 
     override fun getItemCount(): Int {
         Log.d(TAG_AD_LIST, "getItemCount() is executed.")
-        return channel.item.count()
+        return if (channel.item.count() > 5) {
+            5
+        } else {
+            channel.item.count()
+        }
     }
 
     inner class RssFeedHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -47,6 +52,8 @@ class RssFeedListAdapter(private val context: Context, private val channel: Chan
 
         private val titleTextView = itemView.findViewById<TextView>(R.id.list_item_title)
         private val feedImageView = itemView.findViewById<SimpleDraweeView>(R.id.list_item_image_view)
+        private var link = ""
+        //private val repetitiveWordsTextView = itemView.findViewById<TextView>(R.id.list_item_repetitive_words)
 
         fun bindRssFeedItem(listItem: Item) {
             Log.d(TAG_AD_LIST, "bindRssFeedItem() is executed.")
@@ -64,12 +71,16 @@ class RssFeedListAdapter(private val context: Context, private val channel: Chan
                     .setTapToRetryEnabled(true)
                     .setImageRequest(imageRequest)
                     .build()
-            Log.d(TAG_AD_LIST, "bindRssFeedItem() image:${listItem.thumbnail.url}")
-
+            link = listItem.link
         }
 
         override fun onClick(p0: View?) {
-            Log.d(TAG_AD_LIST, "onClick() is executed.")
+            Log.d(TAG_AD_LIST, "onClick(): $link")
+            val webpage = Uri.parse(link)
+            val intent = Intent(Intent.ACTION_VIEW, webpage)
+            if (intent.resolveActivity(context.packageManager) != null) {
+                context.startActivity(intent)
+            }
         }
 
     }

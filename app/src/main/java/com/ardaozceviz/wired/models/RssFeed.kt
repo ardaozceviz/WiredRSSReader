@@ -16,8 +16,9 @@ data class Channel(
 )
 
 data class Item(
-        @SerializedName("title") val title: String = "",
-        @SerializedName("thumbnail") val thumbnail: Thumbnail = Thumbnail()
+        @SerializedName("thumbnail") val thumbnail: Thumbnail = Thumbnail(),
+        @SerializedName("link") val link: String = "",
+        @SerializedName("title") val title: String = ""
 )
 
 data class Thumbnail(
