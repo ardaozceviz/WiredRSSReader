@@ -32,13 +32,13 @@ class Server(private val context: Context) {
                     val rssFeed = Gson().fromJson(response.toString(), RssFeed::class.java)
                     LocalRssFeed(context).save(rssFeed)
                     userInterface.updateUI(rssFeed)
-                    Log.d(TAG_C_SERVER, "getRssFeed() onSuccess() rssFeed: $rssFeed.")
+                    Log.d(TAG_C_SERVER, "getRssFeed() onSuccess() rssFeed: $rssFeed")
                 }
             }
 
             override fun onFailure(statusCode: Int, headers: Array<out Header>?, throwable: Throwable?, errorResponse: JSONObject?) {
-                Log.e(TAG_C_SERVER, "getRssFeed() onFailure() ${throwable.toString()}.")
-                Log.d(TAG_C_SERVER, "getRssFeed() statusCode: $statusCode.")
+                Log.e(TAG_C_SERVER, "getRssFeed() onFailure() ${throwable.toString()}")
+                Log.d(TAG_C_SERVER, "getRssFeed() statusCode: $statusCode")
                 userInterface.stopSwipeRefresh(true)
             }
         })

@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.ardaozceviz.wired.R
-import com.ardaozceviz.wired.controllers.WordCount
 import com.ardaozceviz.wired.models.Channel
 import com.ardaozceviz.wired.models.EXTRA_URL
 import com.ardaozceviz.wired.models.Item

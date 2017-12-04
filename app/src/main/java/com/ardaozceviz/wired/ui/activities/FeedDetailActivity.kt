@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.TextView
 import com.ardaozceviz.wired.R
 import com.ardaozceviz.wired.controllers.WordCount
 import com.ardaozceviz.wired.models.EXTRA_URL
@@ -19,6 +20,8 @@ class FeedDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed_detail)
 
+        val repetitiveWordsTextView = findViewById<TextView>(R.id.feed_detail_repetitive_words)
+
         val webView = findViewById<WebView>(R.id.feed_detail_web_view)
         val url = intent.getStringExtra(EXTRA_URL)
 
@@ -28,15 +31,29 @@ class FeedDetailActivity : AppCompatActivity() {
         doAsync {
             val document = Jsoup.connect(url).get()
             val text = document.select("article.article-body-component").text()
-            // article-body-component article-body-component
             uiThread {
-                //Log.d("FeedDetailActivity", "Title: ${text}")
                 var map = WordCount.phrase(text)
-                map = map.toList().sortedBy { (key, value) -> value }.toMap()
-                for (item in map){
-                    Log.d("MAP", "${item.key}, ${item.value}")
+                var wordCounter = 0
+                val topFiveWordMap = mutableMapOf<String, Int>()
+                map = map.toList().sortedByDescending { (_, value) -> value }.toMap()
+                mainLoop@ for (item in map) {
+                    when (item.key) {
+                        "the", "of", "a", "is", "to", "i", "for", "are", "than", "that", "and", "this", "he", "she", "his", "her", "their", "them", "they", "it", "on", "or", "in", "be", "at", "you", "if", "what", "not", "can", "it's", "but", "with", "s", "bb" -> continue@mainLoop
+                        else -> {
+                            wordCounter++
+                            if (wordCounter > 5) {
+                                break@mainLoop
+                            }
+                            topFiveWordMap.put(item.key, item.value)
+                            Log.d("MAP", "${item.key}, ${item.value}")
+                        }
+                    }
                 }
-
+                var repetitiveWords = ""
+                for (item in topFiveWordMap) {
+                    repetitiveWords += "(${item.value}) ${item.key}, "
+                }
+                repetitiveWordsTextView.text = repetitiveWords.removeSuffix(", ")
             }
         }
     }
