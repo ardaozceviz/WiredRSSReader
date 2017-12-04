@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.widget.Toast
 import com.ardaozceviz.wired.controllers.Server
 import com.ardaozceviz.wired.models.RssFeed
 import com.ardaozceviz.wired.models.TAG_C_INTERFACE
@@ -45,16 +46,26 @@ class UserInterface(private val context: Context) {
         }
     }
 
-    fun stopSwipeRefresh(isWithError: Boolean? = null) {
+    fun stopSwipeRefresh(isWithError: Boolean) {
         Log.d(TAG_C_INTERFACE, "stopSwipeRefresh() is executed.")
-        if (swipeRefreshLayout.isRefreshing) {
+        fun stop() {
             swipeRefreshLayout.post {
                 swipeRefreshLayout.isEnabled = true
                 swipeRefreshLayout.isRefreshing = false
             }
         }
-        if (isWithError != null) {
-            // Show error snackbar here!
+        if (swipeRefreshLayout.isRefreshing) {
+            if (!isWithError) {
+                toast("Update is successful!")
+                stop()
+            } else {
+                toast("Update is failed!")
+                stop()
+            }
         }
+    }
+
+    private fun toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+        Toast.makeText(context, message, duration).show()
     }
 }

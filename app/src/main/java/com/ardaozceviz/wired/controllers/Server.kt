@@ -23,10 +23,11 @@ class Server(private val context: Context) {
         Log.d(TAG_C_SERVER, "getRssFeed() is executed.")
         userInterface.startSwipeRefresh()
         val client = AsyncHttpClient()
+
         client.get(rssFeedUrl, object : JsonHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, response: JSONObject?) {
                 Log.d(TAG_C_SERVER, "getRssFeed() onSuccess() is executed.")
-                userInterface.stopSwipeRefresh()
+                userInterface.stopSwipeRefresh(false)
                 if (response != null) {
                     val rssFeed = Gson().fromJson(response.toString(), RssFeed::class.java)
                     LocalRssFeed(context).save(rssFeed)
@@ -41,6 +42,8 @@ class Server(private val context: Context) {
                 userInterface.stopSwipeRefresh(true)
             }
         })
+
+
     }
 
 }
