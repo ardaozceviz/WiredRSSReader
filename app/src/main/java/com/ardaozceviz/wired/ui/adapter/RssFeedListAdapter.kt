@@ -1,6 +1,7 @@
 package com.ardaozceviz.wired.ui.adapter
 
 import android.content.Context
+import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,12 @@ import com.ardaozceviz.wired.R
 import com.ardaozceviz.wired.models.Channel
 import com.ardaozceviz.wired.models.Item
 import com.ardaozceviz.wired.models.TAG_AD_LIST
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.facebook.drawee.drawable.ProgressBarDrawable
+import com.facebook.drawee.view.SimpleDraweeView
+import com.facebook.imagepipeline.common.ResizeOptions
+import com.facebook.imagepipeline.request.ImageRequestBuilder
+import java.net.URL
 
 /**
  * Created by arda on 04/12/2017.
@@ -38,10 +45,27 @@ class RssFeedListAdapter(private val context: Context, private val channel: Chan
             itemView.setOnClickListener(this)
         }
 
+        private val titleTextView = itemView.findViewById<TextView>(R.id.list_item_title)
+        private val feedImageView = itemView.findViewById<SimpleDraweeView>(R.id.list_item_image_view)
+
         fun bindRssFeedItem(listItem: Item) {
             Log.d(TAG_AD_LIST, "bindRssFeedItem() is executed.")
-            val titleTextView = itemView.findViewById<TextView>(R.id.list_item_title)
+            val progressBarDrawable = ProgressBarDrawable()
+
+            val url = URL(listItem.thumbnail.url)
+            val uri = Uri.parse(url.toURI().toString())
+            val imageRequest = ImageRequestBuilder.newBuilderWithSource(uri)
+                    .setResizeOptions(ResizeOptions(50, 50))
+                    .build()
+
             titleTextView.text = listItem.title
+            feedImageView.hierarchy.setProgressBarImage(progressBarDrawable)
+            feedImageView.controller = Fresco.newDraweeControllerBuilder()
+                    .setTapToRetryEnabled(true)
+                    .setImageRequest(imageRequest)
+                    .build()
+            Log.d(TAG_AD_LIST, "bindRssFeedItem() image:${listItem.thumbnail.url}")
+
         }
 
         override fun onClick(p0: View?) {
