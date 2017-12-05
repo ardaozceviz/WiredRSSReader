@@ -23,12 +23,19 @@ class Translator(private val context: Context, private val url: String) {
 
     private suspend fun getWebText(): String {
         Log.d(TAG_C_TRANSLATION, "getWebText() is executed.")
+        var query = "article.article-body-component"
         val document = async { Jsoup.connect(url).get() }
-        return document.await().select("article.article-body-component").text()
+        val text = document.await().select(query).text()
+        return if (text != "") {
+            text
+        } else {
+            query = "main.listicle-main-component"
+            document.await().select(query).text()
+        }
     }
 
     private fun getRepetitiveWords(text: String): String {
-        Log.d(TAG_C_TRANSLATION, "getRepetitiveWords() is executed.")
+        Log.d(TAG_C_TRANSLATION, "getRepetitiveWords() is executed: ARDA${text}ARDA.")
         var map = WordCount.phrase(text)
         var wordCounter = 0
         val topFiveWordList = mutableListOf<String>()
@@ -51,7 +58,12 @@ class Translator(private val context: Context, private val url: String) {
         for (item in topFiveWordList) {
             repetitiveWords += "$item, "
         }
-        return repetitiveWords.removeSuffix(", ").trim()
+        repetitiveWords = repetitiveWords.removeSuffix(", ").trim()
+        return if (repetitiveWords == "") {
+            "Bad web page format"
+        } else {
+            repetitiveWords
+        }
     }
 
     private fun translateWords(text: String) {
