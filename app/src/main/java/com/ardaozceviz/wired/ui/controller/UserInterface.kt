@@ -37,14 +37,15 @@ class UserInterface(private val context: Context) {
         val rssFeedRecyclerView = activity.rss_feed_recycler_view
         val adapter = RssFeedListAdapter(context, rssFeed.rss.channel)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rssFeedRecyclerView.setHasFixedSize(true)
         rssFeedRecyclerView.adapter = adapter
         rssFeedRecyclerView.layoutManager = layoutManager
-        rssFeedRecyclerView.setHasFixedSize(true)
     }
 
     fun updateTranslate(translation: Translation? = null, isFailed: Boolean) {
         val progressBarTr = activity.findViewById<ProgressBar>(R.id.feed_detail_progress_tr)
         val repetitiveWordsTextViewTr = activity.findViewById<TextView>(R.id.feed_detail_repetitive_words_tr)
+        val repetitiveWordsTextViewEn = activity.findViewById<TextView>(R.id.feed_detail_repetitive_words_en)
         progressBarTr.visibility = View.GONE
         if (!isFailed) {
             val trWordsMap = WordCount.phrase(translation?.text.toString())
@@ -54,7 +55,8 @@ class UserInterface(private val context: Context) {
             }
             repetitiveWordsTextViewTr.text = trWordsList.toString().removePrefix("[").removeSuffix("]")
         } else {
-            repetitiveWordsTextViewTr.text = "Farklı yapıda sayfa hatası."
+            repetitiveWordsTextViewEn.text = "Translation failed, bad page format."
+            repetitiveWordsTextViewTr.text = "Çeviri başarısız, uyumsuz sayfa yapısı."
         }
     }
 

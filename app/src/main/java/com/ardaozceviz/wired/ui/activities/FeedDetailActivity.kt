@@ -32,7 +32,9 @@ class FeedDetailActivity : AppCompatActivity() {
 
         async(UI) {
             translate.start()
-            repetitiveWordsTextView.text = translate.repetitiveWords
+            if (translate.repetitiveWords != null) {
+                repetitiveWordsTextView.text = translate.repetitiveWords
+            }
             progressBarEn.visibility = View.GONE
         }
     }
