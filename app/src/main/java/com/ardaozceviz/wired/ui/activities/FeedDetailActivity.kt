@@ -12,6 +12,7 @@ import com.ardaozceviz.wired.R
 import com.ardaozceviz.wired.controllers.Server
 import com.ardaozceviz.wired.controllers.WordCount
 import com.ardaozceviz.wired.models.EXTRA_URL
+import com.ardaozceviz.wired.ui.controller.UserInterface
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import org.jsoup.Jsoup
@@ -61,9 +62,15 @@ class FeedDetailActivity : AppCompatActivity() {
                 for (item in topFiveWordList) {
                     repetitiveWords += "$item, "
                 }
-                repetitiveWordsTextView.text = repetitiveWords.removeSuffix(", ")
                 progressBarEn.visibility = View.GONE
-                server.translate(repetitiveWords.removeSuffix(", "))
+                repetitiveWords = repetitiveWords.removeSuffix(", ").trim()
+                if (repetitiveWords != "") {
+                    repetitiveWordsTextView.text = repetitiveWords.removeSuffix(", ")
+                    server.translate(repetitiveWords.removeSuffix(", "))
+                } else {
+                    repetitiveWordsTextView.text = "Different page format failure."
+                    UserInterface(this@FeedDetailActivity).updateTranslate(isFailed = true)
+                }
             }
         }
     }

@@ -55,7 +55,7 @@ class RssFeedListAdapter(private val context: Context, private val channel: Chan
         private val titleTextView = itemView.findViewById<TextView>(R.id.list_item_title)
         private val feedImageView = itemView.findViewById<SimpleDraweeView>(R.id.list_item_image_view)
         private var link = ""
-        private val repetitiveWordsTextView = itemView.findViewById<TextView>(R.id.list_item_repetitive_words)
+        private val keywordsTextView = itemView.findViewById<TextView>(R.id.list_item_keywords)
 
         fun bindRssFeedItem(listItem: Item) {
             Log.d(TAG_AD_LIST, "bindRssFeedItem() is executed.")
@@ -75,6 +75,7 @@ class RssFeedListAdapter(private val context: Context, private val channel: Chan
                     .build()
 
             link = listItem.link
+            keywordsTextView.text = listItem.keywords
         }
 
         override fun onClick(p0: View?) {

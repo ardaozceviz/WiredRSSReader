@@ -51,10 +51,13 @@ class Server(private val context: Context) {
         Log.d(TAG_C_SERVER, "translate() is executed.")
         val params = RequestParams()
         params.put("key", "trnsl.1.1.20171204T223256Z.d282838ee9f96294.5010b9274a9cdacd2166cb38724cfa0a67833f7c")
-        params.put("text", engWords)
         params.put("lang", "en-tr")
+        if (engWords != "") {
+            params.put("text", engWords)
+        } else {
+            params.put("text", "Page read failed")
+        }
         getTranslate(params)
-
     }
 
     private fun getTranslate(params: RequestParams) {
@@ -65,7 +68,7 @@ class Server(private val context: Context) {
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, response: JSONObject?) {
                 if (response != null) {
                     val translation = Gson().fromJson(response.toString(), Translation::class.java)
-                    userInterface.updateTranslate(translation)
+                    userInterface.updateTranslate(translation, false)
                     Log.d(TAG_C_SERVER, "getTranslate onSuccess(): ${translation.text}")
                 }
             }

@@ -42,16 +42,20 @@ class UserInterface(private val context: Context) {
         rssFeedRecyclerView.setHasFixedSize(true)
     }
 
-    fun updateTranslate(translation: Translation) {
+    fun updateTranslate(translation: Translation? = null, isFailed: Boolean) {
         val progressBarTr = activity.findViewById<ProgressBar>(R.id.feed_detail_progress_tr)
         val repetitiveWordsTextViewTr = activity.findViewById<TextView>(R.id.feed_detail_repetitive_words_tr)
-        val trWordsMap = WordCount.phrase(translation.text.toString())
-        val trWordsList = mutableListOf<String>()
-        for (word in trWordsMap) {
-            trWordsList.add(word.key)
-        }
         progressBarTr.visibility = View.GONE
-        repetitiveWordsTextViewTr.text = trWordsList.toString().removePrefix("[").removeSuffix("]")
+        if (!isFailed) {
+            val trWordsMap = WordCount.phrase(translation?.text.toString())
+            val trWordsList = mutableListOf<String>()
+            for (word in trWordsMap) {
+                trWordsList.add(word.key)
+            }
+            repetitiveWordsTextViewTr.text = trWordsList.toString().removePrefix("[").removeSuffix("]")
+        } else {
+            repetitiveWordsTextViewTr.text = "Farklı yapıda sayfa hatası."
+        }
     }
 
     fun startSwipeRefresh() {
