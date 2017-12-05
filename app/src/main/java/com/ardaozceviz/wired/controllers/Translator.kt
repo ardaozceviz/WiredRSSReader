@@ -10,7 +10,7 @@ import org.jsoup.Jsoup
 /**
  * Created by arda on 05/12/2017.
  */
-class Translation(private val context: Context, private val url: String) {
+class Translator(private val context: Context, private val url: String) {
     private val server = Server(context)
     var repetitiveWords = ""
 
@@ -38,7 +38,7 @@ class Translation(private val context: Context, private val url: String) {
         mainLoop@
         for (item in map) {
             when (item.key) {
-                "the", "of", "a", "is", "to", "i", "for", "are", "than", "that", "and", "this", "he", "she", "his", "her", "their", "them", "they", "it", "on", "or", "in", "be", "at", "you", "if", "what", "not", "can", "it's", "but", "with", "s", "bb", "was", "were" -> continue@mainLoop
+                "the", "of", "a", "is", "to", "i", "for", "are", "than", "that", "and", "this", "he", "she", "his", "her", "their", "your", "them", "they", "it", "on", "or", "in", "be", "at", "you", "if", "what", "not", "can", "it's", "but", "with", "s", "bb", "was", "were" -> continue@mainLoop
                 else -> {
                     wordCounter++
                     if (wordCounter > 5) {

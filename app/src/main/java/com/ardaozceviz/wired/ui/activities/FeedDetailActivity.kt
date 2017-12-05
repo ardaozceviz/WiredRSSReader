@@ -8,16 +8,12 @@ import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.ardaozceviz.wired.R
-import com.ardaozceviz.wired.controllers.Server
-import com.ardaozceviz.wired.controllers.Translation
+import com.ardaozceviz.wired.controllers.Translator
 import com.ardaozceviz.wired.models.EXTRA_URL
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
 
-
 class FeedDetailActivity : AppCompatActivity() {
-
-    private lateinit var server: Server
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,13 +22,10 @@ class FeedDetailActivity : AppCompatActivity() {
         val repetitiveWordsTextView = findViewById<TextView>(R.id.feed_detail_repetitive_words_en)
         val progressBarEn = findViewById<ProgressBar>(R.id.feed_detail_progress_en)
 
-        server = Server(this)
-
-
         val webView = findViewById<WebView>(R.id.feed_detail_web_view)
         val url = intent.getStringExtra(EXTRA_URL)
 
-        val translate = Translation(this, url)
+        val translate = Translator(this, url)
 
         webView.webViewClient = WebViewClient()
         webView.loadUrl(url)
