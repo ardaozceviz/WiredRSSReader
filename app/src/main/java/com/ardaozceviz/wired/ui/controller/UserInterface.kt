@@ -4,10 +4,16 @@ import android.app.Activity
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
+import com.ardaozceviz.wired.R
 import com.ardaozceviz.wired.controllers.Server
+import com.ardaozceviz.wired.controllers.WordCount
 import com.ardaozceviz.wired.models.RssFeed
 import com.ardaozceviz.wired.models.TAG_C_INTERFACE
+import com.ardaozceviz.wired.models.Translation
 import com.ardaozceviz.wired.ui.adapter.RssFeedListAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -34,6 +40,18 @@ class UserInterface(private val context: Context) {
         rssFeedRecyclerView.adapter = adapter
         rssFeedRecyclerView.layoutManager = layoutManager
         rssFeedRecyclerView.setHasFixedSize(true)
+    }
+
+    fun updateTranslate(translation: Translation) {
+        val progressBarTr = activity.findViewById<ProgressBar>(R.id.feed_detail_progress_tr)
+        val repetitiveWordsTextViewTr = activity.findViewById<TextView>(R.id.feed_detail_repetitive_words_tr)
+        val trWordsMap = WordCount.phrase(translation.text.toString())
+        val trWordsList = mutableListOf<String>()
+        for (word in trWordsMap) {
+            trWordsList.add(word.key)
+        }
+        progressBarTr.visibility = View.GONE
+        repetitiveWordsTextViewTr.text = trWordsList.toString().removePrefix("[").removeSuffix("]")
     }
 
     fun startSwipeRefresh() {
@@ -64,6 +82,7 @@ class UserInterface(private val context: Context) {
             }
         }
     }
+
 
     private fun toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(context, message, duration).show()

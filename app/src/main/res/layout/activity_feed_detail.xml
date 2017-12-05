@@ -23,24 +23,65 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Most repetitive words:"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/feed_detail_repetitive_words_en"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/feed_detail_repetitive_words"
+        android:id="@+id/feed_detail_repetitive_words_en"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/feed_detail_repetitive_words_tr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="TextView" />
+
+    <TextView
+        android:id="@+id/feed_detail_repetitive_words_tr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/feed_detail_web_view"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="TextView" />
+
+    <ProgressBar
+        android:id="@+id/feed_detail_progress_en"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="48dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_x="0dp"
+        android:layout_y="393dp"
+        app:layout_constraintBottom_toBottomOf="@+id/feed_detail_repetitive_words_en"
+        app:layout_constraintEnd_toEndOf="@+id/feed_detail_repetitive_words_en"
+        app:layout_constraintStart_toStartOf="@+id/feed_detail_repetitive_words_en"
+        app:layout_constraintTop_toTopOf="@+id/feed_detail_repetitive_words_en" />
+
+    <ProgressBar
+        android:id="@+id/feed_detail_progress_tr"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/feed_detail_repetitive_words_tr"
+        app:layout_constraintEnd_toEndOf="@+id/feed_detail_repetitive_words_tr"
+        app:layout_constraintStart_toStartOf="@+id/feed_detail_repetitive_words_tr"
+        app:layout_constraintTop_toTopOf="@+id/feed_detail_repetitive_words_tr" />
 </android.support.constraint.ConstraintLayout>
