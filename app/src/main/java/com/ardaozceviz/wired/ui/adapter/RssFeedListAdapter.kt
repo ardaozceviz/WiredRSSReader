@@ -40,7 +40,7 @@ class RssFeedListAdapter(private val context: Context, private val channel: Chan
 
     override fun getItemCount(): Int {
         Log.d(TAG_AD_LIST, "getItemCount() is executed.")
-        return 5
+        return channel.item.count()
     }
 
     inner class RssFeedHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
