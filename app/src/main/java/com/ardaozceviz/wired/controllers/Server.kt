@@ -2,6 +2,7 @@ package com.ardaozceviz.wired.controllers
 
 import android.content.Context
 import android.util.Log
+import com.ardaozceviz.wired.BuildConfig.API_KEY
 import com.ardaozceviz.wired.models.RssFeed
 import com.ardaozceviz.wired.models.TAG_C_SERVER
 import com.ardaozceviz.wired.models.Translation
@@ -18,7 +19,6 @@ import org.json.JSONObject
  * Created by arda on 03/12/2017.
  */
 class Server(private val context: Context) {
-    //private val rssFeedUrl = "http://192.168.1.8:8080/?url=https://www.wired.com/feed/rss"
     private val rssFeedUrl = "https://xtoj.herokuapp.com/?url=https://www.wired.com/feed/rss"
     private val userInterface = UserInterface(context)
 
@@ -50,7 +50,7 @@ class Server(private val context: Context) {
     fun translate(engWords: String) {
         Log.d(TAG_C_SERVER, "translate() is executed.")
         val params = RequestParams()
-        params.put("key", "trnsl.1.1.20171204T223256Z.d282838ee9f96294.5010b9274a9cdacd2166cb38724cfa0a67833f7c")
+        params.put("key", API_KEY)
         params.put("lang", "en-tr")
         if (engWords != "") {
             params.put("text", engWords)
