@@ -3,10 +3,10 @@ This is sample RSS reader app for Android developed in Kotlin which I believe it
 
 ## Screenshots
 
-<img src="https://github.com/ardaozceviz/WiredRSS/blob/master/screenshots/ss1.png" width="430"/>         <img src="https://github.com/ardaozceviz/WiredRSS/blob/master/screenshots/ss2.png" width="430"/>
+<img src="https://github.com/ardaozceviz/WiredRSSReader/blob/master/screenshots/ss1.png" width="430"/>         <img src="https://github.com/ardaozceviz/WiredRSSReader/blob/master/screenshots/ss2.png" width="430"/>
 
 ## Overview
-This app basically retrieves the data from [wired](https://www.wired.com/) RSS channel in XML format. And converts it to the JSON using xtoj and represents to the user in RecyclerView. Each item in the list contains title, image and keywords. When you click the one of the items on the list you will be directed to another Activity where you will find more detailed information about the article as well as five most repetitive words and their Turkish translations. I used [Yandex API](https://tech.yandex.com/translate/) for translation. You can obtain free API key from the website provided.
+This app basically retrieves the data from [wired](https://www.wired.com/) RSS channel in XML format. And converts it to the JSON using [xtoj](https://github.com/atakanozceviz/xtoj) and represents to the user in RecyclerView. Each item in the list contains title, image and keywords. When you click the one of the items on the list you will be directed to another Activity where you will find more detailed information about the article as well as five most repetitive words and their Turkish translations. I used [Yandex API](https://tech.yandex.com/translate/) for translation. You can obtain free API key from the website provided.
 
 ## Libraries used in this project
 * [Android Design Support Library](https://developer.android.com/topic/libraries/support-library/packages.html#custom-tabs)
