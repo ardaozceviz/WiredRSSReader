@@ -1,5 +1,5 @@
 # Wired RSS Reader
-This is sample RSS reader app for Android developed in Kotlin which I believe it might be a useful source for those who want the see how Kotlin language works in Android development. It also demonstrates how [xtoj](https://github.com/atakanozceviz/xtoj) api works as well as using coroutines with suspend functions in Kotlin.
+This is sample RSS reader app for Android developed in Kotlin which I believe it might be a useful source for those who want to see how Kotlin language works in Android development. It also demonstrates how [xtoj](https://github.com/atakanozceviz/xtoj) api works as well as using coroutines with suspend functions in Kotlin.
 
 ## Screenshots
 
